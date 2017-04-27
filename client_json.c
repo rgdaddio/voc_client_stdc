@@ -182,9 +182,11 @@ const char * get_server_state(json_object *j)
 
 const char * get_local_file(json_object *j) //j is an array object
 {
-  for(int i = 0; i < json_object_array_length(j); i++)
+  printf("%s\n",__FUNCTION__);
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       json_object *lfile;
       bool status;
@@ -226,9 +228,10 @@ const char * get_local_file(json_object *j) //j is an array object
 
 const char * get_local_file_size(json_object *j)
 {
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       json_object *lfile;
       bool status = json_object_object_get_ex(lobj, "streams", &objtor); //TBD check status
@@ -255,9 +258,12 @@ const char * get_local_file_size(json_object *j)
 
 char * get_local_thumb_file(json_object *j) //j is an array object
 {
-  for(int i = 0; i < json_object_array_length(j); i++)
-    {
-      json_object *lobj = json_object_array_get_idx(j, i);
+  printf("%s\n",__FUNCTION__);
+  printf("count thumb file = %d\n", json_object_array_length(j));
+  //for(int i = 0; i < json_object_array_length(j); i++)
+  {
+    //json_object *lobj = json_object_array_get_idx(j, i);
+    json_object *lobj = j;
       json_object *objtor;
       json_object *lfile;
       bool status;
@@ -269,6 +275,7 @@ char * get_local_thumb_file(json_object *j) //j is an array object
 	  //mallocing free when needed
 	  char * lt_copy = malloc(strlen(local_thumb)+5);
 	  sprintf(lt_copy,"%s.2",local_thumb);
+	  printf("lt_copy = %s\n", lt_copy);
 	  //change it
 	  downloader(objtor, 2, lt_copy);
 	  return lt_copy;
@@ -279,14 +286,16 @@ char * get_local_thumb_file(json_object *j) //j is an array object
 
 char * get_local_nfo(json_object *j)
 {
+  printf("%s\n",__FUNCTION__);
   return "not done";
 }
 
 int get_thumb_size(json_object *j)
 {
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "thumbSize", &objtor)))
@@ -325,9 +334,10 @@ const char * get_content_provider(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "provider", &objtor)))
@@ -345,9 +355,10 @@ const char * get_category(json_object *j) //j is an array object
 
   char * err = "error";
 
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "catId", &objtor)))
@@ -363,9 +374,10 @@ const char * get_unique_id(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "uniqueId", &objtor)))
@@ -397,9 +409,10 @@ const char * get_summary(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "summary", &objtor)))
@@ -417,9 +430,10 @@ const char * get_title(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "title", &objtor)))
@@ -437,9 +451,10 @@ const char * get_time_stamp(json_object *j) //j is an array object
 
   char * err = "error";
 
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "timeStamp", &objtor)))
@@ -512,9 +527,10 @@ const char * get_sdk_metadata(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "sdkMetadataPassthrough", &objtor)))
@@ -531,9 +547,10 @@ const char * get_streams(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "streams", &objtor)))
@@ -552,9 +569,10 @@ const char * get_adserver_url(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //  for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "adServerUrl", &objtor)))
@@ -579,9 +597,10 @@ const char * get_tags(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //  for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "tags", &objtor)))
@@ -606,9 +625,10 @@ const char * get_priority(json_object *j) //j is an array object
   char * err = "error";
   char * empty = "null";
   //std::cout << "OBJ LEN IN PRI!!!!!!: " << json_object_array_length(j) << std::endl;
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //  for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "priority", &objtor)))
@@ -632,9 +652,10 @@ const char * get_object_type(json_object *j) //j is an array object
   char * empty = "null";
   char * err = "error";
   //std::cout << "IN TYPE!!!!!!!!" << std::endl;
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "objectType", &objtor)))
@@ -651,9 +672,10 @@ const char * get_thumb_attribs(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "thumbAttrs", &objtor)))
@@ -670,9 +692,10 @@ const char * get_object_attribs(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "objectAttrs", &objtor)))
@@ -689,9 +712,10 @@ const char * get_children(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "children", &objtor)))
@@ -708,9 +732,10 @@ const char * get_policy_name(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "policyName", &objtor)))
@@ -727,9 +752,10 @@ const char * get_key_server_url(json_object *j) //j is an array object
 {
   char * err = "error";
   char * empty = "null";
-  for(int i = 0; i < json_object_array_length(j); i++)
+  //for(int i = 0; i < json_object_array_length(j); i++)
     {
-      json_object *lobj = json_object_array_get_idx(j, i);
+      //json_object *lobj = json_object_array_get_idx(j, i);
+      json_object *lobj = j;
       json_object *objtor;
       bool status;
       if((status = json_object_object_get_ex(lobj, "keyServerUrl", &objtor)))
@@ -779,3 +805,4 @@ char * parse_provider_list(char * jstr)
   return retval;
 }
 #endif
+

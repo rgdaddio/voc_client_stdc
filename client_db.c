@@ -11,9 +11,9 @@ static void insertKeyValue(key_val_db_s * db,char * key, char * value)
       {
 	printf("key value DB size %d exceeded %d\n", db->count,MAX_SIZE);
 	return;
-      }
-    db->arr[db->count].key = key;
-    db->arr[db->count].value = value;
+      }    
+    strcpy(db->arr[db->count].key,key);
+    strcpy(db->arr[db->count].value,value);
     db->count++;
 }
 
@@ -357,42 +357,53 @@ int creat_cache_table_entry(sqlite3 *db, char * jstr)
   // to do append only one in each sprintf
   char * tnull = "NULL";
 
-  json_object *new_obj = json_tokener_parse(jstr); //the manifest is a json array
+  json_object *obj = json_tokener_parse(jstr); //the manifest is a json array
+
+  printf("count in obj = %d\n", json_object_array_length(obj));
+
 
   static char sqlstatement[16000];
-  int len = sprintf(sqlstatement,"INSERT INTO cache_manifest (my_row, local_file, local_thumbnail, local_nfo, video_size, thumbnail_size, download_date, content_provider, category, unique_id, summary, title, duration,timestamp, sdk_metadata, streams, ad_server_url, tags, priority, object_type, thumb_attrs, object_attrs, children, policy_name, key_server_url) VALUES(");
+  for(int i = 0; i < json_object_array_length(obj); i++) {
+    json_object *new_obj = json_object_array_get_idx(obj, i);
+    printf("count in newobj = %d\n", json_object_array_length(new_obj));
 
-  len += sprintf(sqlstatement+len,"%s,\"%s\",\"%s\",\"%s\"",
-		 tnull,
-		 get_local_file(new_obj),
-		 get_local_thumb_file(new_obj),
-		 get_local_nfo(new_obj)
-		 );
-  len += sprintf(sqlstatement+len,",\"%s\",\"%d\",\"%zd\"",
-		 get_local_file_size(new_obj),
-		 get_thumb_size(new_obj),
-		 get_download_time()
-		 );
-  len += sprintf(sqlstatement+len,",\"%s\",\"%s\",\"%s\"",
-		 get_content_provider(new_obj),                                                                                                                                                                  	  get_category(new_obj),                                                                                                                                                                          	   get_unique_id(new_obj)
-		 );
-  len += sprintf(sqlstatement+len,",'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
-		 quotesql(get_summary(new_obj)),
-		 get_title(new_obj),
-		 get_duration(new_obj),
-		 get_time_stamp(new_obj),
-		 get_sdk_metadata(new_obj),
-		 get_streams(new_obj),
-		 get_adserver_url(new_obj),
-		 get_tags(new_obj),
-		 get_priority(new_obj),
-		 get_object_type(new_obj),
-		 get_thumb_attribs(new_obj),
-		 get_object_attribs(new_obj),
-		 get_children(new_obj),
-		 get_policy_name(new_obj),
-		 get_key_server_url(new_obj)
-		 );
+    
+    int len = sprintf(sqlstatement,"INSERT INTO cache_manifest (my_row, local_file, local_thumbnail, local_nfo, video_size, thumbnail_size, download_date, content_provider, category, unique_id, summary, title, duration,timestamp, sdk_metadata, streams, ad_server_url, tags, priority, object_type, thumb_attrs, object_attrs, children, policy_name, key_server_url) VALUES(");
+    printf("Length = %d\n",len);
+
+    len += sprintf(sqlstatement+len,"%s,\"%s\",\"%s\",\"%s\"",
+		   tnull,
+		   get_local_file(new_obj),
+		   get_local_thumb_file(new_obj),
+		   get_local_nfo(new_obj)
+		   );
+    len += sprintf(sqlstatement+len,",\"%s\",\"%d\",\"%zd\"",
+		   get_local_file_size(new_obj),
+		   get_thumb_size(new_obj),
+		   get_download_time()
+		   );
+    len += sprintf(sqlstatement+len,",\"%s\",\"%s\",\"%s\"",
+		   get_content_provider(new_obj),                                                                                                                                                                  	  get_category(new_obj),                                                                                                                                                                          	   get_unique_id(new_obj)
+		   );
+    len += sprintf(sqlstatement+len,",'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+		   quotesql(get_summary(new_obj)),
+		   get_title(new_obj),
+		   get_duration(new_obj),
+		   get_time_stamp(new_obj),
+		   get_sdk_metadata(new_obj),
+		   get_streams(new_obj),
+		   get_adserver_url(new_obj),
+		   get_tags(new_obj),
+		   get_priority(new_obj),
+		   get_object_type(new_obj),
+		   get_thumb_attribs(new_obj),
+		   get_object_attribs(new_obj),
+		   get_children(new_obj),
+		   get_policy_name(new_obj),
+		   get_key_server_url(new_obj)
+		   );
+    
+    }
   #if 0
 
   sprintf(sqlstatement,"%s%s,%s,%s,%s,%d,%zd,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"

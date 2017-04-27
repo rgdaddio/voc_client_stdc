@@ -2,12 +2,13 @@
 #define _MANIFEST_
 
 #include <string.h>
-
+#define KEY_SIZE 64
+#define VAL_SIZE 1024
 #define MAX_SIZE 1000
 
 typedef struct key_val_t {
- char * key;
- char * value;
+ char key[KEY_SIZE];
+ char value[VAL_SIZE];
 } key_val_s;
 
 typedef struct key_val_db_t {

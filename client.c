@@ -79,7 +79,8 @@ char * get_status_json(char * schema, char * tenant)
 {
   //TODO will need to access the database and get status related variables to put in here 
   static key_val_db_s json;
-  json.count =0;
+  memset(&json,0,sizeof(json));
+  //json.count =0;
   
   manifest_processing(&json);
    
@@ -104,8 +105,10 @@ char * get_status_json(char * schema, char * tenant)
  {
 
    static key_val_db_s json;
-   json.count =0;
+   //json.count =0;
    
+   memset(&json,0,sizeof(json));
+  
    manifest_processing(&json);
 
   
@@ -811,6 +814,7 @@ int get_http_content(char * domain, char * path, char * cache_file)
 
 char * get_response(char * server, char * schemaName, char * tenantId, char * publicKey, char * path, eXtype type)
 {
+  printf("Going to raise the request type: %d\n",type);
   char * json = ""; 
   char * with_header = "";
   if(type == eRegister)

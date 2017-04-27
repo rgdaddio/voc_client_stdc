@@ -6,10 +6,11 @@
 char * get_val(key_val_db_s * db, char * key)
 
 {
-  for(int i = 0; i <= db->count;i++)
+  for(int i = 0; i < db->count;i++)
     {
       if(!strcmp(db->arr[i].key,key)) return db->arr[i].value;
     }
+  printf("Returning NULL for key = %s\n",key);
   return NULL;
 }
 

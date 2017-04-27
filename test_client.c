@@ -209,8 +209,6 @@ int send_status(char * arv1, char * arv2, char * arv3, char * arv4)
 
 int main(int argc, char* argv[])
 {
-  //try{
-
     if (argc != 5)
       {
 	printf( "Usage: client <server> <schemaName> <tenantId> <publicKey>\n");
@@ -225,57 +223,37 @@ int main(int argc, char* argv[])
     else
       printf("User is previously registered\n");
 
-    //}catch (std::exception& e){
-    //std::cerr << "Caught input Exception: " << e.what() << "\n";
-    ///}
-
-
-    printf("\n\nRequesting for manifest..\n\n");
-
-    get_manifest_from_server(argv[1], argv[2], argv[3], argv[4]);
-    //hello_voc(argv[1], argv[2], argv[3], argv[4]);
-    //get_provider_list(argv[1], argv[2], argv[3], argv[4]);
-    //get_topic_list(argv[1], argv[2], argv[3], argv[4]);
-    //get_profile(argv[1], argv[2], argv[3], argv[4]);
-    //get_policy(argv[1], argv[2], argv[3], argv[4]);
-    send_status(argv[1], argv[2], argv[3], argv[4]);
-
-    return 1;
-
 
  while(1)
    {
-#if 0
-     std::cout << "\nOptions: <cacheFill> <hello> <getProviderList> <getTopicList> <getProfile> <getPolicy> <^C> " << std::endl;
-     //std::string mani = "cacheFill";
-     std::string val;
-     std::getline(std::cin,val);
+     printf("\nOptions: <cacheFill> <hello> <getProviderList> <getTopicList> <getProfile> <getPolicy> <status> <^C> ");
+     char val[128];
+     fscanf(stdin,"%s",val);
 
-     if(val.compare("cacheFill") == 0){
+     if(strcmp(val,"cacheFill") == 0){
        get_manifest_from_server(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("hello") == 0){
+     else if(strcmp(val,"hello") == 0){
         hello_voc(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("getProviderList") == 0){
+     else if(strcmp(val,"getProviderList") == 0){
         get_provider_list(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("getTopicList") == 0){
+     else if(strcmp(val,"getTopicList") == 0){
         get_topic_list(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("getProfile") == 0){
+     else if(strcmp(val,"getProfile") == 0){
         get_profile(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("getPolicy") == 0){
+     else if(strcmp(val,"getPolicy") == 0){
         get_policy(argv[1], argv[2], argv[3], argv[4]);
      }
-     else if(val.compare("status") == 0){
+     else if(strcmp(val,"status") == 0){
         send_status(argv[1], argv[2], argv[3], argv[4]);
      }
     else{
-       std::cout << "Unknown Option " << val << std::endl;
+      printf("Unknown Option: %s\n",val);
     }
-#endif
    }
  return 0;
 }
